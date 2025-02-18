@@ -13,6 +13,7 @@ port = config['db_port']
 table = config ['db_table']
 csv_path = config ['file']
 
+#connecting in database
 def loading():
     try:    
         conn = psycopg2.connect(
@@ -30,6 +31,7 @@ def loading():
 conn = loading()
 cursor = conn.cursor()
 
+#loading csv data in database
 df = pd.read_csv(csv_path)
 with open(csv_path, 'r') as f:
     next(f) 
@@ -37,6 +39,14 @@ with open(csv_path, 'r') as f:
 
     conn.commit()
     print(f"Dados inseridos com sucesso na '{table}'.")
-    
-    cursor.close()
-    conn.close()
+
+cursor = conn.cursor()
+
+#testing database w/ query
+query = pd.read_sql("""
+                        SELECT *
+                        FROM clientes
+                        LIMIT 5
+                        """,
+                        conn)
+print(query.head())
