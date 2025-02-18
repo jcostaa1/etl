@@ -47,6 +47,6 @@ df = formatting(df)
 
 df.to_csv('csv_data.csv') #testing a csv file w/ transformed data
 
-today = datetime.now()
+today = datetime.now() #unnecessary message
 message = f"Arquivo pronto. \nDia e horário: {today.strftime('%d/%m/%Y %H:%M:%S')}."
 print (message)
