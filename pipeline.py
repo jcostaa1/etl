@@ -1,7 +1,5 @@
 import pandas as pd
-from sqlalchemy import create_engine
-import psycopg2
-import json
+from datetime import datetime
 
 def extracting(): #extracting data
     df = pd.read_csv('raw_data.csv', delimiter=';', quotechar='"')
@@ -47,18 +45,8 @@ def formatting(df, column_name='endereco'): #adjusting address
 
 df = formatting(df)
 
-#df.to_csv('csv_data.csv') #testing a csv file w/ transformed data
+df.to_csv('csv_data.csv') #testing a csv file w/ transformed data
 
-def loading(df, table_name='clientes', file='config.json'): #connecting and loading w/ database (review this!!!!!!!)
-    with open(file, 'r') as f:
-        db = json.load(f)
-        
-        user = db['db_user']
-        password = db['db_password']
-        host = db['db_host']
-        port = db['db_port']
-        database = db['db_database']
-        engine_str = f'postgresql://{user}:{password}@{host}:{port}/{database}'
-        engine = create_engine(engine_str)
-
-        df.to_sql(table_name, engine, if_exists='append', index=False)
+today = datetime.now()
+message = f"Arquivo pronto. \nDia e horário: {today.strftime('%d/%m/%Y %H:%M:%S')}."
+print (message)
