@@ -22,9 +22,9 @@ def loading():
             password=password,
             port=port
         )
-        print("Success.")
+        print("Conectado com sucesso.")
     except Exception as e:
-        print("Failed. \nError:", str(e))
+        print("Ocorreu uma falha. \nErro:", str(e))
     return conn
 
 conn = loading()
